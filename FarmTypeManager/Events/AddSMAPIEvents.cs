@@ -4,7 +4,9 @@ namespace FarmTypeManager;
 
 public partial class ModEntry : Mod
 {
-    /// <summary>Add this mod's event methods to SMAPI's event handlers. This should be performed once during mod entry.</summary>
+    /// <summary>
+    /// Add this mod's event methods to SMAPI's event handlers. This should be performed once during mod entry.
+    /// </summary>
     private void AddSMAPIEvents(IModHelper helper)
     {
         //spawn-related events

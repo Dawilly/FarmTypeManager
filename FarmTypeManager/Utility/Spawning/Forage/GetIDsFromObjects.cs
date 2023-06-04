@@ -16,7 +16,7 @@ namespace FarmTypeManager
             /// <returns>A new list of Stardew object IDs in integer form.</returns>
             public static List<int> GetIDsFromObjects(List<object> objects, string areaID = "")
             {
-                List<int> IDs = new List<int>();
+                List<string> IDs = new List<string>();
 
                 foreach (object obj in objects)
                 {
@@ -27,7 +27,7 @@ namespace FarmTypeManager
                     else if (obj is string name) //if the object is a string (i.e. the name of an item), cast it as a string
                     {
                         bool foundMatchingItem = false;
-                        foreach (KeyValuePair<int, string> item in Game1.objectInformation) //for each item in the game's object list
+                        foreach (KeyValuePair<string, string> item in Game1.objectInformation) //for each item in the game's object list
                         {
                             if (name.Trim().Equals(item.Value.Split('/')[0], StringComparison.OrdinalIgnoreCase)) //if the provided name matches this object's name (note: first part of the dictionary value, separated from other settings by '/')
                             {

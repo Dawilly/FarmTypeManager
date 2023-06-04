@@ -336,35 +336,36 @@ namespace FarmTypeManager
                             break; //skip the rest of these checks
                         }
 
-                        switch (Game1.weatherForTomorrow) //compare to tomorrow's weather
+                        // Compare to tomorrow's weather
+                        switch (Game1.weatherForTomorrow) 
                         {
-                            case (int)Utility.Weather.Sunny:
-                            case (int)Utility.Weather.Festival: //festival and wedding = sunny, as far as this mod is concerned
-                            case (int)Utility.Weather.Wedding:
+                            case Game1.weather_sunny:
+                            case Game1.weather_festival:
+                            case Game1.weather_wedding:
                                 if (weather.Equals("Sun", StringComparison.OrdinalIgnoreCase) || weather.Equals("Sunny", StringComparison.OrdinalIgnoreCase) || weather.Equals("Clear", StringComparison.OrdinalIgnoreCase))
                                 {
                                     validWeather = true;
                                 }
                                 break;
-                            case (int)Utility.Weather.Rain:
+                            case Game1.weather_rain:
                                 if (weather.Equals("Rain", StringComparison.OrdinalIgnoreCase) || weather.Equals("Rainy", StringComparison.OrdinalIgnoreCase) || weather.Equals("Raining", StringComparison.OrdinalIgnoreCase))
                                 {
                                     validWeather = true;
                                 }
                                 break;
-                            case (int)Utility.Weather.Debris:
+                            case Game1.weather_debris:
                                 if (weather.Equals("Wind", StringComparison.OrdinalIgnoreCase) || weather.Equals("Windy", StringComparison.OrdinalIgnoreCase) || weather.Equals("Debris", StringComparison.OrdinalIgnoreCase))
                                 {
                                     validWeather = true;
                                 }
                                 break;
-                            case (int)Utility.Weather.Lightning:
+                            case Game1.weather_lightning:
                                 if (weather.Equals("Storm", StringComparison.OrdinalIgnoreCase) || weather.Equals("Stormy", StringComparison.OrdinalIgnoreCase) || weather.Equals("Storming", StringComparison.OrdinalIgnoreCase) || weather.Equals("Lightning", StringComparison.OrdinalIgnoreCase))
                                 {
                                     validWeather = true;
                                 }
                                 break;
-                            case (int)Utility.Weather.Snow:
+                            case Game1.weather_snow:
                                 if (weather.Equals("Snow", StringComparison.OrdinalIgnoreCase) || weather.Equals("Snowy", StringComparison.OrdinalIgnoreCase) || weather.Equals("Snowing", StringComparison.OrdinalIgnoreCase))
                                 {
                                     validWeather = true;
@@ -372,9 +373,10 @@ namespace FarmTypeManager
                                 break;
                         }
 
-                        if (validWeather == true) //if a valid weather condition was listed
+                        // If a valid weather condition was listed, skip the rest of the checks.
+                        if (validWeather) 
                         {
-                            break; //skip the rest of these checks
+                            break;
                         }
                     }
 
@@ -384,12 +386,13 @@ namespace FarmTypeManager
                     }
                     else
                     {
+                        // Prevent spawning for invalid weather.
                         Monitor.Log("Tomorrow's weather did NOT match any settings. Spawn disabled.", LogLevel.Trace);
-                        return false; //prevent spawning
+                        return false;
                     }
                 }
 
-                //check CP conditions
+                // Check CP conditions
                 if (area.ExtraConditions.CPConditions != null && area.ExtraConditions.CPConditions.Count > 0)
                 {
                     Monitor.Log($"CP conditions found. Checking...", LogLevel.Trace);
