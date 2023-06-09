@@ -98,13 +98,15 @@ namespace FarmTypeManager
             /// <returns>A saved object representing the designated StardewValley.Object. Null if creation failed.</returns>
             private static SavedObject CreateSavedObject(int objectID, string areaID = "")
             {
-                IDictionary<int, string> objDictionary = GetItemDictionary("object"); //get currently loaded object data
-                if (objDictionary.ContainsKey(objectID)) //if data exists for this object ID
+                string objID = objectID.ToString();
+
+                IDictionary<string, string> objDictionary = GetItemDictionary("object"); //get currently loaded object data
+                if (objDictionary.ContainsKey(objID)) //if data exists for this object ID
                 {
                     SavedObject saved = new SavedObject() //generate a saved object with the appropriate type and ID
                     {
                         Type = SavedObject.ObjectType.Object,
-                        ID = objectID
+                        ID = objID
                     };
                     Monitor.VerboseLog($"Parsed integer object ID: {objectID}");
                     return saved;
@@ -113,7 +115,7 @@ namespace FarmTypeManager
                 {
                     Monitor.Log($"An area's item list contains an object ID that did not match any loaded objects.", LogLevel.Info);
                     Monitor.Log($"Affected spawn area: \"{areaID}\"", LogLevel.Info);
-                    Monitor.Log($"Object ID: \"{objectID}\"", LogLevel.Info);
+                    Monitor.Log($"Object ID: \"{objID}\"", LogLevel.Info);
                     Monitor.Log($"This may be caused by an error in the item list or a modded object that wasn't loaded. The affected object will be skipped.", LogLevel.Info);
                     return null;
                 }
@@ -125,15 +127,15 @@ namespace FarmTypeManager
             /// <returns>A saved object representing the designated StardewValley.Object. Null if creation failed.</returns>
             private static SavedObject CreateSavedObject(string objectName, string areaID = "")
             {
-                int? objectID = GetItemID("object", objectName); //get an object ID for this name
+                string objectID = GetItemID("object", objectName); //get an object ID for this name
 
-                if (objectID.HasValue) //if a matching object ID was found
+                if (!string.IsNullOrEmpty(objectID)) //if a matching object ID was found
                 {
                     SavedObject saved = new SavedObject() //generate a saved object with the appropriate type, ID, and name
                     {
                         Type = SavedObject.ObjectType.Object,
                         Name = objectName,
-                        ID = objectID.Value
+                        ID = objectID
                     };
                     Monitor.VerboseLog($"Parsed \"{objectName}\" into object ID: {objectID}");
                     return saved;
@@ -257,14 +259,14 @@ namespace FarmTypeManager
 
                 string savedName = item.Category + ":" + item.Name;
 
-                int? itemID = GetItemID(item.Category, item.Name); //get an item ID for the category and name
-                if (itemID.HasValue) //if a matching item ID was found
+                string itemID = GetItemID(item.Category, item.Name); //get an item ID for the category and name
+                if (!string.IsNullOrEmpty(itemID)) //if a matching item ID was found
                 {
                     SavedObject saved = new SavedObject() //generate a saved object with these settings
                     {
                         Type = item.Type,
                         Name = savedName,
-                        ID = itemID.Value,
+                        ID = itemID,
                         ConfigItem = item
                     };
                     Monitor.VerboseLog($"Parsed \"{item.Category}\": \"{item.Name}\" into item ID: {itemID}");

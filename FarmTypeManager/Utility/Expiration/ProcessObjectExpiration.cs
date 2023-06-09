@@ -234,7 +234,7 @@ namespace FarmTypeManager
                             {
                                 if (realObject is Chest chest) //if this is a chest
                                 {
-                                    while (chest.items.Count < saved.ConfigItem?.Contents.Count) //while this chest has less items than the saved object's "contents"
+                                    while (chest.Items.Count < saved.ConfigItem?.Contents.Count) //while this chest has less items than the saved object's "contents"
                                     {
                                         saved.ConfigItem.Contents.RemoveAt(0); //remove a missing item from the ConfigItem's contents (note: chests output the item at index 0 when used)
                                     }

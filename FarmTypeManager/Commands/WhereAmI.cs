@@ -13,8 +13,9 @@ namespace FarmTypeManager
 
             GameLocation loc = Game1.currentLocation;
             string tmxName = Utility.GetTMXBuildableName(loc.Name);
-            int x = Game1.player.getTileX();
-            int y = Game1.player.getTileY();
+
+            Game1.player.TilePoint.Deconstruct(out int x, out int y);
+
             int index = loc.getTileIndexAt(x, y, "Back");
             string type = loc.doesTileHaveProperty(x, y, "Type", "Back") ?? "[none]";
             string diggable = loc.doesTileHaveProperty(x, y, "Diggable", "Back");

@@ -73,19 +73,22 @@ namespace FarmTypeManager.Monsters
             if (this.Sprite.currentFrame < 4)
             {
                 boundingBox.Inflate(128, 128);
-                if (!this.IsInvisible || boundingBox.Contains(this.Player.getStandingX(), this.Player.getStandingY()))
+
+                
+
+                if (!this.IsInvisible || boundingBox.Contains(this.Player.StandingPixel.X, this.Player.StandingPixel.Y))
                 {
                     if (this.IsInvisible)
                     {
                         if (currentLocation?.map != null) //if the player has access to the current location's map (a necessary check for farmhands in some locations)
                         {
                             //only check for the NPCBarrier flag, ignoring the base Duggy's other movement restrictions
-                            if (this.currentLocation.map.GetLayer("Back").Tiles[(int)this.Player.getTileLocation().X, (int)this.Player.getTileLocation().Y].Properties.ContainsKey("NPCBarrier"))
+                            if (this.currentLocation.map.GetLayer("Back").Tiles[(int)this.Player.Tile.X, (int)this.Player.Tile.Y].Properties.ContainsKey("NPCBarrier"))
                                 return;
                         }
                         this.Position = new Vector2(this.Player.Position.X, this.Player.Position.Y + (float)this.Player.Sprite.SpriteHeight - (float)this.Sprite.SpriteHeight);
                         this.currentLocation.localSound(nameof(Duggy));
-                        this.Position = this.Player.getTileLocation() * 64f;
+                        this.Position = this.Player.Tile * 64f;
                     }
                     this.IsInvisible = false;
                     this.Sprite.interval = 100f;

@@ -21,7 +21,7 @@ namespace FarmTypeManager
 
                 if (lootList != null) //if this monster has a loot list
                 {
-                    Utility.Monitor.VerboseLog($"Dropping loot for defeated monster. Monster: {monster.displayName}. ID: {monster.id}. Location: {monster.getTileX()},{monster.getTileY()} ({monster.currentLocation.Name}).");
+                    Utility.Monitor.VerboseLog($"Dropping loot for defeated monster. Monster: {monster.displayName}. ID: {monster.id}. Location: {monster.Tile} ({monster.currentLocation.Name}).");
 
                     //get the position where the monster's loot should drop
                     Point center = monster.GetBoundingBox().Center;
